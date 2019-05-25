@@ -10,5 +10,5 @@ class Student(ndb.Model):
     address = ndb.StringProperty()
     phone_number = ndb.StringProperty()
     email_address = ndb.EmailProperty()
-    created_at = ndb.DateTimeProperty(auto_now_add=True)
-    updated_at = ndb.DateTimeProperty()
+    created_at = ndb.DateTimeProperty(auto_now=True)
+    updated_at = ndb.DateTimeProperty(auto_now_add=True)
