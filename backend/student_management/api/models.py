@@ -2,7 +2,6 @@ from google.appengine.ext import ndb
 
 
 class Student(ndb.Model):
-    id = ndb.IntegerProperty()
     roll = ndb.IntegerProperty()
     name = ndb.StringProperty()
     student_class = ndb.InterProperty()

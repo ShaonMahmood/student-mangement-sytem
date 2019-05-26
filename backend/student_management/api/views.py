@@ -2,10 +2,12 @@ from flask import current_app as app, request
 
 from flask_restful import Resource
 from marshmallow import ValidationError
+from google.appengine.ext import ndb
 
 from .utils import return_response
 from .models import Student
 from .serializers import StudentSchema, StudentUpdateSchema
+
 
 class StatusView(Resource):
     def get(self):
@@ -15,8 +17,9 @@ class StatusView(Resource):
 
 class StudentListView(Resource):
     def get(self):
-        categories = Student.objects
-        result, errors = StudentSchema(many=True).dump(categories)
+        qry = Student.query().order(-Student.created_at)
+        students = qry.fetch(10)
+        result, errors = StudentSchema(many=True).dump(students)
         if errors:
             response = return_response(errors, 404)
         else:
@@ -33,8 +36,8 @@ class StudentListView(Resource):
             return return_response(errors, 400)
 
         try:
-            issue = Student(**data).save()
-        except ValidationError as e:
+            issue = Student(**data).put()
+        except Exception as e:
             error_message = {"error": str(e)}
             return return_response(error_message, 400)
 
@@ -48,19 +51,19 @@ class StudentDetailView(Resource):
     def get(self, student_id):
 
         try:
-            worker_issue = Student.objects(id=student_id).get()
-        except Student.DoesNotExist:
-            error_message = {
-                "error": "WorkerIssue Object Not Found"
-            }
+            student_entity = ndb.Key(Student, str(student_id)).get()
+        except Exception as e:
+            error_message = {"error": str(e)}
             return return_response(error_message, 404)
-        result, errors = StudentSchema().dump(worker_issue)
+
+        result, errors = StudentSchema().dump(student_entity)
         if errors:
             response = return_response(errors, 404)
         else:
             response = return_response(result, 200)
         return response
         pass
+
     def put(self, student_id):
 
         json_data = request.get_json()
@@ -69,18 +72,24 @@ class StudentDetailView(Resource):
             return return_response(errors, 400)
 
         try:
-            worker_issue = Student.objects(id=student_id).get()
-        except Student.DoesNotExist:
-            error_message = {
-                "error": "WorkerIssue Object Not Found"
-            }
+            student_entity = ndb.Key(Student, str(student_id)).get()
+        except Exception as e:
+            error_message = {"error": str(e)}
             return return_response(error_message, 404)
 
-        worker_issue.status = data.get("status", worker_issue.status)
-        worker_issue.worker_feedback = data.get("worker_feedback", worker_issue.worker_feedback)
-        worker_issue.save()
-        result, errors = StudentSchema().dump(worker_issue)
+        student_entity.populate(**data)
+        student_entity.put()
+        result, errors = StudentSchema().dump(student_entity)
         return return_response(result, 200)
         pass
+
     def delete(self, student_id):
-        pass
+        try:
+            student_entity = ndb.Key(Student, str(student_id)).get()
+        except Exception as e:
+            error_message = {"error": str(e)}
+            return return_response(error_message, 404)
+
+        student_entity.key.delete()
+        message = {"success": "id with {0} is deleted".format(student_id)}
+        return return_response(message, 200)
