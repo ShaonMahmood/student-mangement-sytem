@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StudentService {
-  uri = 'http://localhost:8080/api/v1/students';
+  uri = 'https://steel-league-241504.appspot.com/api/v1/students';
   constructor(private http: HttpClient) { }
 
   addStudent(id, roll, name, student_class, date_of_birth, address, phone_number, email_address) {
