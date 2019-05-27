@@ -25,7 +25,6 @@ class StudentListView(Resource):
         else:
             response = return_response(result, 200)
         return response
-        pass
 
     def post(self):
         json_data = request.get_json()
@@ -44,8 +43,6 @@ class StudentListView(Resource):
         result, errors = StudentSchema().dump(issue)
         return return_response(result, 201)
 
-        pass
-
 
 class StudentDetailView(Resource):
     def get(self, student_id):
@@ -62,7 +59,6 @@ class StudentDetailView(Resource):
         else:
             response = return_response(result, 200)
         return response
-        pass
 
     def put(self, student_id):
 
@@ -81,7 +77,6 @@ class StudentDetailView(Resource):
         student_entity.put()
         result, errors = StudentSchema().dump(student_entity)
         return return_response(result, 200)
-        pass
 
     def delete(self, student_id):
         try:
