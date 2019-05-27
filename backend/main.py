@@ -1,4 +1,5 @@
 import os
+from flask_cors import CORS
 from student_management import create_app
 from config import Config
 
@@ -12,7 +13,7 @@ from config import Config
     Similarly for adding logger we can override the default logging handlers here 
 """
 app = create_app(config_class=Config)
-
+CORS(app)
 
 if __name__ == "__main__":
     app.run(debug=True)
