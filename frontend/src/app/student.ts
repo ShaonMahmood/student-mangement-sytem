@@ -1,5 +1,5 @@
 export default class Student {
-    id: string;
+    student_id: string;
     roll: number;
     name: string;
     student_class: number;

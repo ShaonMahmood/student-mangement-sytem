@@ -16,7 +16,7 @@ export class StudentAddComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      id: ['', Validators.required ],
+      student_id: ['', Validators.required ],
       roll: ['', Validators.required ],
       name: ['', Validators.required ],
       student_class: ['', Validators.required ],
@@ -28,8 +28,8 @@ export class StudentAddComponent implements OnInit {
     });
   }
 
-  addStudent(id, roll, name, student_class, date_of_birth, address, phone_number, email_address) {
-    this.bs.addStudent(id, roll, name, student_class, date_of_birth, address, phone_number, email_address);
+  addStudent(student_id, roll, name, student_class, date_of_birth, address, phone_number, email_address) {
+    this.bs.addStudent(student_id, roll, name, student_class, date_of_birth, address, phone_number, email_address);
   }
 
   ngOnInit() {

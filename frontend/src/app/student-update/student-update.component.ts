@@ -21,7 +21,7 @@ export class StudentUpdateComponent implements OnInit {
 
   createForm() {
    this.angForm = this.fb.group({
-    id: ['', Validators.required ],
+    student_id: ['', Validators.required ],
     roll: ['', Validators.required ],
     name: ['', Validators.required ],
     student_class: ['', Validators.required ],

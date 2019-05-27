@@ -8,9 +8,9 @@ export class StudentService {
   uri = 'https://steel-league-241504.appspot.com/api/v1/students';
   constructor(private http: HttpClient) { }
 
-  addStudent(id, roll, name, student_class, date_of_birth, address, phone_number, email_address) {
+  addStudent(student_id, roll, name, student_class, date_of_birth, address, phone_number, email_address) {
     const obj = {
-      id: id,
+      student_id: student_id,
       roll: roll,
       name: name,
       phone_number: phone_number,
@@ -36,10 +36,10 @@ export class StudentService {
             .get(`${this.uri}/${id}`);
     }
 
-    updateStudent(id,roll, name, student_class, date_of_birth, address, phone_number, email_address,) {
+    updateStudent(student_id,roll, name, student_class, date_of_birth, address, phone_number, email_address,) {
 
       const obj = {
-        id: id,
+        student_id: student_id,
         roll: roll,
         name: name,
         phone_number: phone_number,
@@ -50,14 +50,14 @@ export class StudentService {
         };
       this
         .http
-        .put(`${this.uri}/${id}`, obj)
+        .put(`${this.uri}/${student_id}`, obj)
         .subscribe(res => console.log('Done'));
     }
 
-    deleteStudent(id) {
+    deleteStudent(student_id) {
       return this
                 .http
-                .delete(`${this.uri}/${id}`);
+                .delete(`${this.uri}/${student_id}`);
     }
 
 }
