@@ -40,7 +40,7 @@ class StudentListView(Resource):
             error_message = {"error": str(e)}
             return return_response(error_message, 400)
 
-        result, errors = StudentSchema().dump(issue)
+        result, errors = StudentSchema().dump(issue.get())
         return return_response(result, 201)
 
 
@@ -48,7 +48,7 @@ class StudentDetailView(Resource):
     def get(self, student_id):
 
         try:
-            student_entity = ndb.Key(Student, str(student_id)).get()
+            student_entity = Student.query(Student.student_id == student_id).get()
         except Exception as e:
             error_message = {"error": str(e)}
             return return_response(error_message, 404)

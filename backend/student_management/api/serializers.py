@@ -2,7 +2,7 @@ from marshmallow import Schema, fields
 
 
 class StudentSchema(Schema):
-    id = fields.Str()
+    student_id = fields.Str()
     roll = fields.Int()
     name = fields.Str()
     student_class = fields.Int()
