@@ -11,6 +11,7 @@ A student management system build on top of google cloud engine. backend is deve
 with flask and frontend with angular.
 
 Backend app is deployed at <https://steel-league-241504.appspot.com>
+To Check The server go to <https://steel-league-241504.appspot.com/api/v1/status>
 
 ## Technologies
 - Flask
