@@ -68,19 +68,20 @@ class StudentDetailView(Resource):
             return return_response(errors, 400)
 
         try:
-            student_entity = ndb.Key(Student, str(student_id)).get()
+            student_entity = Student.query(Student.student_id == student_id).get()
         except Exception as e:
             error_message = {"error": str(e)}
             return return_response(error_message, 404)
 
         student_entity.populate(**data)
-        student_entity.put()
-        result, errors = StudentSchema().dump(student_entity)
+        key = student_entity.put()
+
+        result, errors = StudentSchema().dump(key.get())
         return return_response(result, 200)
 
     def delete(self, student_id):
         try:
-            student_entity = ndb.Key(Student, str(student_id)).get()
+            student_entity = Student.query(Student.student_id == student_id).get()
         except Exception as e:
             error_message = {"error": str(e)}
             return return_response(error_message, 404)
