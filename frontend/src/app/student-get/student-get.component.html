@@ -1,0 +1,26 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+      <td>Id</td>
+      <td>Roll</td>
+      <td>Name</td>
+      <td>Email</td>
+      <td>Class</td>
+      <td>Phone</td>
+      <td colspan="2">Actions</td>
+  </tr>
+  </thead>
+
+  <tbody>
+      <tr *ngFor="let student of students">
+          <td>{{ student.id }}</td>
+          <td>{{ student.roll }}</td>
+          <td>{{ student.name }}</td>
+          <td>{{ student.email_address }}</td>
+          <td>{{ student.student_class }}</td>
+          <td>{{ student.phone_number }}</td>
+          <td><a [routerLink]="['students/edit', student.id]" class="btn btn-primary">Edit</a></td>
+          <td><a (click) = "deleteStudent(student.id)" class="btn btn-danger">Delete</a>
+      </tr>
+  </tbody>
+</table>

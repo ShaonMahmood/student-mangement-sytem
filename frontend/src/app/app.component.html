@@ -1,10 +1,22 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <app-students></app-students>
+<ng2-slim-loading-bar color="blue"></ng2-slim-loading-bar>
+
+<nav class="navbar navbar-expand-sm bg-light">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a routerLink="students/create" class="nav-link" routerLinkActive="active">
+          Enroll a Student
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="students/list" class="nav-link" routerLinkActive="active">
+          Student List
+        </a>
+      </li> 
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
-
-
-<router-outlet></router-outlet>
